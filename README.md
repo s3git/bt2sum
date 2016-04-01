@@ -1,7 +1,7 @@
 BT2SUM
 ======
 
-This utility is derived from [b2sum](https://bitbucket.org/dchest/b2sum) as developed by Dmitry Chestnykh. It is adapted to use the BLAKE2 Tree hasing mode in so called 'unlimited fanout' mode, as it is used in [s3git](https://github.com/s3git/s3git) and described [here](https://github.com/s3git/s3git/blob/master/BLAKE2.md#blake2-tree-modeunlimited-fanout).
+This utility is derived from [b2sum](https://bitbucket.org/dchest/b2sum) as developed by Dmitry Chestnykh. It is adapted to use the BLAKE2 Tree hashing mode in so called 'unlimited fanout' mode, as it is used in [s3git](https://github.com/s3git/s3git) and described [here](https://github.com/s3git/s3git/blob/master/BLAKE2.md#blake2-tree-modeunlimited-fanout).
 
 It computes the hashes for the chunks at the leaf level in parallel using by default the number of processors of your computer which gives a nice speed up. Once the hashes for all leaves are available the final hash is computed at level 1.
 
@@ -20,7 +20,7 @@ $ bt2sum -h
 Usage
 -----
 
-```sh
+```
 Usage of bt2sum:
   -a string
     	Hash algorithm (blake2b, blake2s) (default "blake2b")
