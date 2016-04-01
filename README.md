@@ -5,6 +5,25 @@ This utility is derived from [b2sum](https://bitbucket.org/dchest/b2sum) as deve
 
 It computes the hashes for the chunks at the leaf level in parallel using by default the number of processors of your computer which gives a nice speed up. Once the hashes for all leaves are available the final hash is computed at level 1.
 
+BLAKE2 Tree mode/Unlimited fanout
+---------------------------------
+
+In addition to the 'normal' sequential mode that most hashing algorithms use, BLAKE2 has a very flexible tree-hashing mode. Although BLAKE2 supports arbitrary-depth trees, s3git uses a special mode called **unlimited fanout** as shown here:
+
+```
+                  /=====\
+                  | 1:0 |
+                  \=====/
+
+/-----\  /-----\  /-----\  /-----\      /=====\
+| 0:0 |  | 0:1 |  | 0:2 |  | 0:3 |  ... | 0:N | 
+\-----/  \-----/  \-----/  \-----/      \=====/
+```
+
+In this diagram the boxes represent leaves whereby the label `i:j` represents a node's depth `i` and offset `j`. Double-lined nodes (including leaves) are the last nodes of a layer. The leaves process chunks of data of `leaf length` bytes independently of each other, and subsequently the root node hashes the concatenation of the hashes of the leaves.
+
+For BLAKE2's unlimited fanout mode the depth is always fixed at 2 and there can be as many leaves as are required given the size of the input. Note that the `node offset` and `node depth` parameters ensure that each invocation of BLAKE2 uses a different hash function (and hence will generate a different output for the same input).
+
 Build from source
 -----------------
 
