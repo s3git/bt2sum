@@ -91,6 +91,14 @@ real	0m1.435s
 user	0m6.685s
 sys     0m0.271s
 $
+$ # Use two processors 
+$ time bt2sum -cpus 2 1000mb.bin
+  BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
+  
+  real	0m2.920s
+  user	0m4.276s
+  sys	0m0.265s
+$
 $ # Just use a single processor 
 $ time bt2sum -cpus 1 1000mb.bin
 BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
