@@ -76,3 +76,24 @@ $ # Use blake2s algo
 $ bt2sum -a blake2s go1.6.darwin-amd64.pkg
 BLAKE2s-32 (go1.6.darwin-amd64.pkg) = 75cbcfafa371ed2afb0f4abce06af44a1261376ee071cd35e698f3f590ace529
 ```
+
+Performance
+-----------
+
+```sh
+$ # 
+$ time bt2sum 1000mb.bin
+BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
+
+real	0m1.435s
+user	0m6.685s
+sys     0m0.271s
+$
+$ # Just use a single CPU 
+$ time bt2sum -cpus 1 1000mb.bin
+BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
+
+real	0m4.387s
+user	0m4.198s
+sys     0m0.196s
+```
