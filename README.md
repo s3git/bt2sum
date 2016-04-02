@@ -80,8 +80,10 @@ BLAKE2s-32 (go1.6.darwin-amd64.pkg) = 75cbcfafa371ed2afb0f4abce06af44a1261376ee0
 Performance
 -----------
 
+With warm cache of a 1 GB file, the following shows the performance difference between using parallel processing for the leaf chunks versus effectively serializing the hashing of all leaf chunks.
+
 ```sh
-$ # 
+$ # Use max number of processors to compute leaf chunks (8 in this case)
 $ time bt2sum 1000mb.bin
 BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
 
@@ -89,7 +91,7 @@ real	0m1.435s
 user	0m6.685s
 sys     0m0.271s
 $
-$ # Just use a single CPU 
+$ # Just use a single processor 
 $ time bt2sum -cpus 1 1000mb.bin
 BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
 
@@ -97,3 +99,5 @@ real	0m4.387s
 user	0m4.198s
 sys     0m0.196s
 ```
+
+Overall result is a factor 3x performance improvement.
