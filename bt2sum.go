@@ -14,8 +14,8 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dchest/blake2b"
 	"github.com/dchest/blake2s"
+	"github.com/minio/blake2b-simd"
 )
 
 var (
