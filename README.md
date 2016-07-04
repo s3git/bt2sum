@@ -1,7 +1,7 @@
 BT2SUM
 ======
 
-This utility is derived from [b2sum](https://bitbucket.org/dchest/b2sum) as developed by Dmitry Chestnykh. It is adapted to use the BLAKE2 Tree hashing mode in so called 'unlimited fanout' mode, as it is used in [s3git](https://github.com/s3git/s3git) and described [here](https://github.com/s3git/s3git/blob/master/BLAKE2.md#blake2-tree-modeunlimited-fanout).
+This utility is derived from [b2sum](https://bitbucket.org/dchest/b2sum) as developed by Dmitry Chestnykh and uses the [SIMD optimized](https://github.com/minio/blake2b-simd) version for the amb64 platform. It is adapted to use the BLAKE2 Tree hashing mode in so called 'unlimited fanout' mode, as it is used in [s3git](https://github.com/s3git/s3git) and described [here](https://github.com/s3git/s3git/blob/master/BLAKE2.md#blake2-tree-modeunlimited-fanout).
 
 It computes the hashes for the chunks at the leaf level in parallel using by default the number of processors of your computer which gives a nice speed up. Once the hashes for all leaves are available the final hash is computed at level 1.
 
@@ -87,25 +87,25 @@ $ # Use max number of processors to compute leaf chunks (8 in this case)
 $ time bt2sum 1000mb.bin
 BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
 
-real	0m1.435s
-user	0m6.685s
-sys     0m0.271s
+real	0m0.560s
+user	0m1.853s
+sys	0m0.277s
 $
 $ # Use two processors 
 $ time bt2sum -cpus 2 1000mb.bin
-  BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
+BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
   
-  real	0m2.920s
-  user	0m4.276s
-  sys	0m0.265s
+real	0m1.060s
+user	0m1.432s
+sys	0m0.246s
 $
 $ # Just use a single processor 
 $ time bt2sum -cpus 1 1000mb.bin
 BLAKE2b-64 (1000mb.bin) = e8aa2e154b96cd8948c9f8c360298d0a4352c4c6159bc0b06ef819edcb338fd14d406823973520cded13ddb5c08e59ed7c2c8b09aafe6d78ccfb6fcf6f2ae3c1
 
-real	0m4.387s
-user	0m4.198s
-sys     0m0.196s
+real	0m1.633s
+user	0m1.431s
+sys	0m0.201s
 ```
 
 Overall result is a factor 3x performance improvement.
