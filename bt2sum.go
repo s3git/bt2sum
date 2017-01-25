@@ -148,6 +148,9 @@ func calcStream(algo hashDesc, r io.Reader, fileSize int64) (digest []byte, err 
 			partBuffer := make([]byte, leafSize)
 			n, err := r.Read(partBuffer)
 			if err != nil {
+				if err == io.EOF {
+					break
+				}
 				return
 			}
 			partBuffer = partBuffer[:n]
